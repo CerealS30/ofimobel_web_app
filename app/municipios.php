@@ -4,17 +4,16 @@
   <meta charset="utf-8">
   <title>OFIMOBEL Web App</title>
   <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 </head>
 <body>
   <?php
-  require_once "../models/User.php";
+  require_once "../models/Municipio.php";
   require_once "../models/Titular.php";
-  $db = new Database;
   $db2 = new DatabaseMySQL;
-  $user = new User($db, $db2);
-  $usersMySQL = $user->getMySQL(1);
+  $munis = new Municipio($db2);
+  $usersMySQL = $munis->getMySQL();
 
   //var_dump($new_titular[0][0]);
   //$titular = new Titular($usersMySQL->id, $usersMySQL->nombre_completo);
@@ -28,13 +27,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="<?php echo User::baseurl() ?>app/list.php">Titulares</a>
+          <a class="nav-link" href="<?php echo Municipio::baseurl() ?>app/list.php">Titulares</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo User::baseurl() ?>app/estados.php">Estados</a>
+          <a class="nav-link" href="<?php echo Municipio::baseurl() ?>app/estados.php">Estados</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo User::baseurl() ?>app/municipios.php">Municipios</a>
+          <a class="nav-link" href="<?php echo Municipio::baseurl() ?>app/municipios.php">Municipios</a>
         </li>
       </ul>
     </div>
@@ -44,7 +43,7 @@
     <div class="col-lg-12">
       <h2 class="text-center text-primary">Lista Municipios</h2>
       <div class="col-lg-1 pull-right" style="margin-bottom: 50px">
-        <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/add.php">Añadir Municipio</a>
+        <a class="btn btn-info" href="<?php echo Municipio::baseurl() ?>app/add_municipio.php">Añadir Municipio</a>
       </div>
 
       <?php
@@ -59,17 +58,17 @@
             <th>Acciones</th>
           </tr>
           <?php foreach($usersMySQL as $users)
-           //var_dump($users);
+          //var_dump($users);
           {
             ?>
             <tr>
-              <td><?php echo $users->id_municipio?></td>
-              <td><?php echo $users->Municipio ?></td>
-              <td><?php echo $users->Estado?></td>
+              <td><?php echo htmlentities($users->id_municipio)?></td>
+              <td><?php echo htmlentities($users->Municipio) ?></td>
+              <td><?php echo htmlentities($users->Estado == NULL ? "NO HAY ESTADO" : $users->Estado) ?></td>
 
               <td>
-                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/edit.php?user=<?php echo $user->idauto ?>">Edit</a>
-                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/delete.php?user=<?php echo $user->idauto ?>">Delete</a>
+                <a class="btn btn-info" href="<?php echo Municipio::baseurl() ?>app/edit_municipio.php?municipio=<?php echo $users->id_municipio ?>">Edit</a>
+                <a class="btn btn-info" href="<?php echo Municipio::baseurl() ?>app/delete_municipio.php?municipio=<?php echo $users->id_municipio ?>">Delete</a>
               </td>
 
               <?php

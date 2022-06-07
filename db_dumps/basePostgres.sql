@@ -80,14 +80,40 @@ CREATE TABLE public.credito (
 ALTER TABLE public.credito OWNER TO postgres;
 
 --
+-- Name: credito_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.credito_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.credito_id_seq OWNER TO postgres;
+
+--
+-- Name: credito_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.credito_id_seq OWNED BY public.credito.id;
+
+
+--
+-- Name: credito id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.credito ALTER COLUMN id SET DEFAULT nextval('public.credito_id_seq'::regclass);
+
+
+--
 -- Data for Name: credito; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.credito (id, id_credito, tipo_v, subt, tipo_c, autorizacion, monto_credito) FROM stdin;
-1	221010073583	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	994293.78
-2	221010076035	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	604718.39
 3	221010076139	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	503104.7
-4	221010076197	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	669168.09
 5	221010078440	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	607575.39
 6	221010078597	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	730805.24
 7	221010080004	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	1129115.03
@@ -131,7 +157,6 @@ COPY public.credito (id, id_credito, tipo_v, subt, tipo_c, autorizacion, monto_c
 45	221010004988	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	596159.76
 46	221010005317	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	f	1285622.05
 47	221010005849	VIVIENDA USADA	Adquisicion	INDIVIDUAL	f	564585.55
-48	221010006578	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	619595.39
 49	221010007197	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	613173.83
 50	221010008037	VIVIENDA USADA	Adquisicion	INDIVIDUAL	f	534729.18
 51	221010008225	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	f	1312527.05
@@ -191,6 +216,7 @@ COPY public.credito (id, id_credito, tipo_v, subt, tipo_c, autorizacion, monto_c
 105	221010064064	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	599860.92
 106	221010064773	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	1406839.05
 107	221010067094	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	606259.83
+2	221010076035	REDENCION DE PASIVO	Redencion Pasivo	INDIVIDUAL	t	12345
 108	221010067307	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	1254710.05
 109	221010067889	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	601131.76
 110	221010068713	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	1231276.37
@@ -480,8 +506,16 @@ COPY public.credito (id, id_credito, tipo_v, subt, tipo_c, autorizacion, monto_c
 394	221010023139	VIVIENDA USADA	Adquisicion	INDIVIDUAL	t	600954.39
 395	221010024052	VIVIENDA NUEVA	Construccion	INDIVIDUAL	t	740329.19
 396	221010025396	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	672151.71
-397	221010027990	VIVIENDA NUEVA	Adquisicion	INDIVIDUAL	t	316856.16
+397	123456789001	VIVIENDA USADA	Construccion	INDIVIDUAL	t	4567890.4
+401	123456789012	VIVIENDA USADA	Redencion Pasivo	INDIVIDUAL	t	12345
 \.
+
+
+--
+-- Name: credito_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.credito_id_seq', 405, true);
 
 
 --

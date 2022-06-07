@@ -18,12 +18,15 @@
   $user = new User($db, $db2);
   $users = $user->get();
 
-  $usersMySQL = $user->getMySQL(0);
+  $usersMySQL = $user->getMySQL();
   $titular = new Titular($users, $usersMySQL);
   $new_titular = $titular->getTitular();
 
-
-  //var_dump($new_titular[0][0]);
+  //var_dump($usersMySQL);
+  /*$array = array_column($new_titular[0], 'subt');
+  var_dump($array)*/
+  //$new_array = $titular->array_flatten($new_titular);
+  //var_dump($new_titular[0][1]->nombre_completo);
   //$titular = new Titular($usersMySQL->id, $usersMySQL->nombre_completo);
   ?>
 
@@ -51,7 +54,7 @@
     <div class="col-lg-12">
       <h2 class="text-center text-primary">Lista Credito</h2>
       <div class="col-lg-1 pull-right" style="margin-bottom: 50px">
-        <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/add.php">Añadir titular</a>
+        <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/add_titular.php">Añadir titular</a>
       </div>
 
       <?php
@@ -74,26 +77,26 @@
 
             <th>Acciones</th>
           </tr>
-          <?php for($i = 0; $i < count($new_titular[0]); $i++)
-          //  var_dump($Titular);
+          <?php for($i = 0; $i < count($new_titular[1]); $i++)
+
           {
             ?>
             <tr>
-              <td><?php echo $new_titular[1][$i]->id?></td>
-              <td><?php echo $new_titular[1][$i]->nombre_completo ?></td>
-              <td><?php echo $new_titular[0][$i]->id_credito?></td>
-              <td><?php echo $new_titular[1][$i]->curp?></td>
-              <td><?php echo $new_titular[1][$i]->Municipio ?></td>
-              <td><?php echo $new_titular[1][$i]->Estado ?></td>
-              <td><?php echo $new_titular[1][$i]->tipo_fil?></td>
-              <td><?php echo $new_titular[1][$i]->mail ?></td>
-              <td><?php echo $new_titular[1][$i]->movil ?></td>
-              <td><?php echo $new_titular[0][$i]->tipo_v ?></td>
-              <td><?php echo $new_titular[0][$i]->autorizacion ? "SI" : "NO"   ?></td>
-              <td><?php echo $new_titular[0][$i]->monto_credito ?></td>
+              <td><?php echo htmlentities($new_titular[0][$i]->id)?></td>
+              <td><?php echo htmlentities($new_titular[1][$i]->nombre_completo) ?></td>
+              <td><?php echo htmlentities($new_titular[0][$i]->id_credito) ?></td>
+              <td><?php echo htmlentities($new_titular[1][$i]->curp) ?></td>
+              <td><?php echo htmlentities($new_titular[1][$i]->nombre_m) ?></td>
+              <td><?php echo htmlentities($new_titular[1][$i]->nombre) ?></td>
+              <td><?php echo htmlentities($new_titular[1][$i]->tipo_fil)?></td>
+              <td><?php echo htmlentities($new_titular[1][$i]->mail) ?></td>
+              <td><?php echo htmlentities($new_titular[1][$i]->movil) ?></td>
+              <td><?php echo htmlentities($new_titular[0][$i]->tipo_v) ?></td>
+              <td><?php echo htmlentities($new_titular[0][$i]->autorizacion) ? "SI" : "NO"   ?></td>
+              <td><?php echo htmlentities($new_titular[0][$i]->monto_credito) ?></td>
               <td>
-                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/edit.php?user=<?php echo $user->idauto ?>">Edit</a>
-                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/delete.php?user=<?php echo $user->idauto ?>">Delete</a>
+                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/edit_titular.php?titular=<?= $new_titular[0][$i]->id ?>&id_credito=<?= $new_titular[0][$i]->id_credito ?>&curp=<?= $new_titular[1][$i]->curp ?>&nombre=<?= $new_titular[1][$i]->nombre_completo ?>&rfc=<?= $new_titular[1][$i]->rfc ?>">Edit</a>
+                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/delete_titular.php?titular=<?php echo $new_titular[0][$i]->id ?>">Delete</a>
               </td>
 
               <?php
